@@ -7,17 +7,17 @@ const LandingPage = () => {
   const [url, setUrl] = useState("");
 
   return (
-    <div className="w-screen max-w-full overflow-x-hidden">
+    <div className="w-screen max-w-full flex flex-col">
       <Header />
-      <div className="min-h-screen w-full max-w-full bg-[#0f0f11] text-white pt-42 pb-16 font-sans">
+      <div className="bg-[#0f0f11] text-white pt-42 pb-16 font-sans">
         <motion.header
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="w-full mx-auto text-center mb-20"
         >
-          <h1 className="text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            Get Actionable Website Feedback in Seconds
+          <h1 className="text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">
+            Get Actionable Website Feedback in Second
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             SpotCheck analyzes your site’s clarity, messaging, and design — and
@@ -27,7 +27,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 overflow-x-hidden"
+            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <input
               type="url"
@@ -38,7 +38,7 @@ const LandingPage = () => {
             />
             <button
               onClick={() => console.log("Run SpotCheck clicked")}
-              className="px-6 py-4 bg-blue-500 rounded-xl font-semibold hover:bg-blue-400 transition text-white"
+              className="px-6 py-4 bg-primary rounded-xl font-semibold hover:bg-blue-400 transition text-white"
             >
               Run SpotCheck
             </button>
@@ -71,7 +71,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
-              className="bg-[#161618] border border-gray-800 p-6 rounded-xl shadow-xl overflow-x-hidden"
+              className="bg-[#161618] border border-gray-800 p-6 rounded-xl shadow-xl"
             >
               <h3 className="text-xl font-semibold mb-2 text-blue-400">
                 {f.title}
@@ -85,7 +85,7 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center overflow-x-hidden"
+          className="max-w-4xl mx-auto text-center"
         >
           <h2 className="text-3xl font-bold mb-4 text-white">
             Try It Free — No Sign-Up Required
@@ -106,7 +106,7 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto mt-32 overflow-x-hidden"
+          className="max-w-6xl mx-auto mt-32"
         >
           <h3 className="text-center text-2xl font-semibold mb-8 text-white">
             What a SpotCheck Report Looks Like
@@ -124,7 +124,7 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-5xl mx-auto mt-32 overflow-x-hidden"
+          className="max-w-5xl mx-auto mt-32"
         >
           <h3 className="text-center text-2xl font-semibold mb-8 text-white">
             Trusted by Makers & Startups
@@ -147,8 +147,8 @@ const LandingPage = () => {
             ))}
           </div>
         </motion.section>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };
