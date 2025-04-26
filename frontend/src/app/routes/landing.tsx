@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Header from "../../components/ui/header";
-import Footer from "../../components/ui/footer";
+import LandingLayout from "../../components/layouts/landing-layout";
 
 const LandingPage = () => {
   const [url, setUrl] = useState("");
 
   return (
-    <div className="w-screen max-w-full flex flex-col">
-      <Header />
-      <div className="bg-[#0f0f11] text-white pt-42 pb-16 font-sans">
+    <LandingLayout>
+      <div className="flex flex-col justify-center items-center py-20 bg-background">
         <motion.header
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full mx-auto text-center mb-20"
+          className="w-full mx-auto text-center mb-20 pt-10"
         >
-          <h1 className="text-6xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">
+          <h1 className="text-6xl font-semibold mb-6 leading-tight bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">
             Get Actionable Website Feedback in Second
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -50,7 +48,7 @@ const LandingPage = () => {
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ staggerChildren: 0.2 }}
-          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 overflow-x-hidden overflow-y-hidden"
+          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-32"
         >
           {[
             {
@@ -71,7 +69,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
-              className="bg-[#161618] border border-gray-800 p-6 rounded-xl shadow-xl"
+              className="bg-[#161618] border border-gray-800 p-6 rounded-xl"
             >
               <h3 className="text-xl font-semibold mb-2 text-blue-400">
                 {f.title}
@@ -111,7 +109,7 @@ const LandingPage = () => {
           <h3 className="text-center text-2xl font-semibold mb-8 text-white">
             What a SpotCheck Report Looks Like
           </h3>
-          <div className="bg-[#18181b] p-6 rounded-xl border border-gray-700 shadow-md">
+          <div className="bg-[#18181b] p-6 rounded-xl border border-gray-700">
             <pre className="text-gray-300 text-sm whitespace-pre-wrap">
               ✅ Clear headline, but subheading is vague ❌ CTA button is hidden
               below the fold ✅ Strong testimonial placement builds trust
@@ -148,8 +146,7 @@ const LandingPage = () => {
           </div>
         </motion.section>
       </div>
-      <Footer />
-    </div>
+    </LandingLayout>
   );
 };
 

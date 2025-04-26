@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="w-full py-6 border-b border-gray-800 fixed top-0 z-50 bg-[#0f0f11]/80 backdrop-blur-md shadow-lg ring-1 ring-white/10">
+    <header className="w-full py-6 border-b fixed backdrop">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <div className="text-xl font-semibold text-white tracking-tight">
           SpotCheck
