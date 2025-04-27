@@ -1,7 +1,6 @@
 import * as cheerio from "cheerio";
 import axios from "axios";
 import OpenAI from "openai";
-import { url } from "inspector";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
