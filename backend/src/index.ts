@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { feedbackroutes } from './routes/feedbackRoutes';
-
+import feedbackroutes from './routes/feedbackRoutes';
 
 const app = express();
 
@@ -18,7 +17,6 @@ app.use(cors({
 app.use(cookieParser());
 
 app.use('/api/feedback', feedbackroutes);
-
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://localhost:${PORT}`);
