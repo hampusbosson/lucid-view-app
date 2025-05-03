@@ -1,11 +1,12 @@
 import * as cheerio from "cheerio";
 import axios from "axios";
-import OpenAI from "openai";
 import dotenv from "dotenv";
+import Groq from "groq-sdk";
+
 dotenv.config();
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export const fetchContentFromURL = async (url: string): Promise<string> => {
@@ -26,7 +27,7 @@ export const fetchContentFromURL = async (url: string): Promise<string> => {
     // Remove unwanted tags
     $("script, style, noscript, iframe, object").remove();
 
-    //Remove comments
+    // Remove comments
     $("*")
       .contents()
       .each(function () {
@@ -44,63 +45,82 @@ export const fetchContentFromURL = async (url: string): Promise<string> => {
 };
 
 const validateLandingPageURL = (urlString: string): boolean => {
-    const url = new URL(urlString);
-    const segments = url.pathname.split("/").filter(Boolean);
+  const url = new URL(urlString);
+  const segments = url.pathname.split("/").filter(Boolean);
 
-    return segments.length < 1;
-}
+  return segments.length < 1;
+};
 
 export const givePageFeedback = async (content: string): Promise<string> => {
-    if (!content) {
-        throw new Error("Content is required");
+  if (!content) {
+    throw new Error("Content is required");
+  }
+
+  try {
+    const response = await groq.chat.completions.create({
+      model: "compound-beta",
+      messages: [
+        {
+          role: "system",
+          content: `
+                    You are a senior UX and web conversion expert. Your task is to analyze a landing page and return a tightly structured checklist with no filler or summary.
+
+                    Your response MUST be split into **three separate sections**, with very specific formatting.
+
+                    ---
+                    SECTION 1: Strengths (3–5 lines)
+                    Each line must begin with ✅
+
+                    ✅ Example strength 1  
+                    ✅ Example strength 2
+
+                    ---
+                    SECTION 2: Problems (3–5 lines)
+                    Each line must begin with ❌
+
+                    ❌ Example issue 1  
+                    ❌ Example issue 2
+
+                    ---
+                    SECTION 3: Actionable Recommendations (3–5 lines)
+                    Each line must begin with a bullet point (•)  
+                    DO NOT use ✅, ❌, or any emojis in this section
+
+                    • Example recommendation 1  
+                    • Example recommendation 2
+
+                    ---
+                    Do NOT include:
+                    - Any section headers
+                    - Any introductions (like “Here’s what I found”)
+                    - Any conclusions or summaries
+                    - Any markdown or formatting beyond the bullets above
+
+                    Respond ONLY with the checklist items as shown above.
+                    If no recommendation is found, write:
+                    • No recommendations available
+          `,
+        },
+        {
+          role: "user",
+          content: `
+                  The following is the cleaned HTML content of a landing page.
+                  Please analyze it according to your instructions above and provide actionable UX and conversion optimization feedback.
+
+                  HTML Content: ${content}
+          `,
+        },
+      ],
+    });
+
+    const feedback = response.choices[0].message?.content;
+    if (!feedback) {
+      throw new Error("No feedback received from Groq");
     }
-    
-    try {
-        const response = await openai.chat.completions.create({
-            model: "o3-mini-2025-01-31",
-            messages: [
-                {
-                    role: "system",
-                    content:`
-                            You are an expert web designer, UX consultant, and conversion rate optimization specialist.
-                            Your task is to critically but constructively analyze landing page content.
-                            
-                            Focus on:
-                            - Clarity of the main value proposition
-                            - Visibility and effectiveness of the primary call-to-action (CTA)
-                            - Visual trust signals (testimonials, trust badges, case studies)
-                            - Overall first impression and emotional impact
-                            
-                            Be specific, actionable, and professional in tone.
-                            Assume the user wants to improve conversions and user trust.
-                            
-                            Respond with a short, bullet-pointed report.
-                            Start each point with ✅ for strengths or ❌ for problems.
-                            `
-                  },
-                  {
-                    role: "user",
-                    content:`
-                            The following is the cleaned HTML content of a landing page.
-                            Please analyze it according to your instructions above and provide actionable UX and conversion optimization feedback.
-                            
-                            HTML Content: ${content}
-                            `
-                  },
-            ],
-        });
 
-        const feedback = response.choices[0].message?.content;
-        if (!feedback) {
-            throw new Error("No feedback received from OpenAI");
-        }
-
-        return feedback;
-    } catch (error) {
-        console.error("Error giving feedback:", error);
-        throw new Error("Failed to give feedback");
-    }
-    
-}
-
-
+    return feedback;
+  } catch (error) {
+    console.error("Error giving feedback:", error);
+    throw new Error("Failed to give feedback");
+  }
+};
