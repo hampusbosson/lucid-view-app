@@ -4,6 +4,6 @@ import { analyzeLandingPage } from "../controllers/feedbackController";
 
 const router = express.Router();
 
-router.get('/analyze', analyzeLandingPage);
+router.post('/analyze', analyzeLandingPage);
 
 export default router;
