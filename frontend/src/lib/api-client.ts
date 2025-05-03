@@ -4,10 +4,14 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     requiresAuth?: boolean;
 }
-    
+
+
 export const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: import.meta.env.VITE_BACKEND_URL
 });
+
+
+console.log("API URL:", import.meta.env.VITE_BACKEND_URL);
 
 const authRequestInterceptor = (config: CustomAxiosRequestConfig) => {
     if (config.headers) {
@@ -30,3 +34,4 @@ const authRequestInterceptor = (config: CustomAxiosRequestConfig) => {
 }
 
 apiClient.interceptors.request.use(authRequestInterceptor);
+
