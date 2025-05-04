@@ -1,13 +1,47 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import LandingLayout from "../../components/layouts/landing-layout";
+import { analyzeContent } from "../../features/landing-feedback/api/analyze";
+import FeedbackContainer from "../../features/landing-feedback/components/feedback-container";
+import { useEffect } from "react";
+
 
 const LandingPage = () => {
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [feedback, setFeedback] = useState("");
+
+
+  useEffect(() => {
+    console.log("Updated loading state:", loading);
+  }, [loading]);
+
+  const analyzeUrl = async (url: string) => {
+
+    try {
+      setLoading(true);
+      const response = await analyzeContent(url);
+      setFeedback(response);
+    } catch (error) {
+      console.error("Error analyzing URL:", error);
+      alert("Failed to analyze the URL. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAnalysisPress = () => {
+    if (!url) {
+      alert("Please enter a valid URL.");
+      return;
+    } else {
+      analyzeUrl(url);
+    }
+  };
 
   return (
     <LandingLayout>
-      <div className="flex flex-col justify-center items-center py-20 bg-background">
+      <div className="flex flex-col justify-center items-center py-20 bg-background">        
         <motion.header
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -18,7 +52,7 @@ const LandingPage = () => {
             Get Actionable Website Feedback in Second
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            SpotCheck analyzes your site’s clarity, messaging, and design — and
+            LucidView analyzes your site’s clarity, messaging, and design — and
             gives you a clear, actionable report to boost trust and conversions.
           </p>
           <motion.div
@@ -35,14 +69,23 @@ const LandingPage = () => {
               className="p-4 rounded-xl text-black w-full max-w-md bg-white"
             />
             <button
-              onClick={() => console.log("Run SpotCheck clicked")}
+              onClick={() => handleAnalysisPress()}
               className="px-6 py-4 bg-primary rounded-xl font-semibold hover:bg-blue-400 transition text-white"
             >
-              Run SpotCheck
+              Run Analysis
             </button>
           </motion.div>
         </motion.header>
-
+        {(feedback || loading) && (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <FeedbackContainer feedbackText={feedback} loading={loading}/>
+          </motion.section>
+        )}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -78,7 +121,6 @@ const LandingPage = () => {
             </motion.div>
           ))}
         </motion.section>
-
         <motion.section
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +141,6 @@ const LandingPage = () => {
             Get Started
           </button>
         </motion.section>
-
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -117,7 +158,6 @@ const LandingPage = () => {
             </pre>
           </div>
         </motion.section>
-
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
