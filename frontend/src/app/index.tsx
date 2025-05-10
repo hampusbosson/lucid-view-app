@@ -1,8 +1,6 @@
 import LandingPage from './routes/landing'
 
 function App() {
-  
-
   return (
     <div>
          <LandingPage />
