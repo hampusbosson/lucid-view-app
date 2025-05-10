@@ -23,13 +23,12 @@ body {
 .backdrop {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  
 }
-
 
 button {
   cursor: pointer;
   border: none;
+  background: transparent
 }
 
 input {
