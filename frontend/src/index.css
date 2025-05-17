@@ -25,6 +25,13 @@ body {
   -webkit-backdrop-filter: blur(4px);
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -34,4 +41,13 @@ button {
 input {
   border: none;
   outline: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
 }
