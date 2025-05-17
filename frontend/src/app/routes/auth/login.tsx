@@ -28,20 +28,20 @@ const LoginPage: React.FC = () => {
               type="password"
               id="password"
               placeholder="••••••••"
-              className="w-full px-4 py-2 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 mb-2 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
+            className="w-full py-3 rounded-lg bg-primary text-white font-semibold hover:bg-blue-600 transition"
           >
             Sign In
           </button>
         </form>
 
         <p className="text-center text-sm text-gray-500">
-          Don’t have an account? <a href="#" className="text-blue-400 hover:underline">Sign up</a>
+          Don’t have an account? <a href="/signup" className="text-blue-400 hover:underline">Sign up</a>
         </p>
       </div>
     </div>
