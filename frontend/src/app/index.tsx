@@ -1,10 +1,8 @@
-import LandingPage from './routes/landing'
+import AppRouter from './router'
 
 function App() {
   return (
-    <div>
-         <LandingPage />
-    </div>
+      <AppRouter />
   )
 }
 
