@@ -18,7 +18,7 @@ const Header = () => {
         </nav>
         <div className="flex items-center space-x-4">
           <button
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition"
           >
             Sign Up
           </button>

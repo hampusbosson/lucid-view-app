@@ -70,7 +70,7 @@ const LandingPage = () => {
             />
             <button
               onClick={() => handleAnalysisPress()}
-              className="px-6 py-4 bg-primary rounded-xl font-semibold hover:bg-blue-400 transition text-white"
+              className="px-6 py-4 bg-primary rounded-xl font-semibold hover:bg-blue-600 transition text-white"
             >
               Run Analysis
             </button>
